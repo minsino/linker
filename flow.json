@@ -7,6 +7,72 @@
         "info": ""
     },
     {
+        "id": "2b13caf6.bdb5c6",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "192.168.178.1",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "7c1e5eca.b0007",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "192.168.178.1",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "7b5a3659.33b9b8",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "172.17.0.4",
+        "port": "1884",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
         "id": "350fd018.c10d",
         "type": "inject",
         "z": "76e53d6c.7055c4",
@@ -39,5 +105,184 @@
         "x": 480,
         "y": 80,
         "wires": []
+    },
+    {
+        "id": "71d5e0ed.b141a",
+        "type": "inject",
+        "z": "76e53d6c.7055c4",
+        "name": "",
+        "topic": "",
+        "payload": "{\"id\":12345678,\"d1\":0}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "x": 140,
+        "y": 220,
+        "wires": [
+            [
+                "96d41022.63625"
+            ]
+        ]
+    },
+    {
+        "id": "2fbc964b.36ceaa",
+        "type": "mqtt out",
+        "z": "76e53d6c.7055c4",
+        "name": "",
+        "topic": "test/msg",
+        "qos": "",
+        "retain": "",
+        "broker": "2b13caf6.bdb5c6",
+        "x": 604,
+        "y": 219,
+        "wires": []
+    },
+    {
+        "id": "c5982338.1d5d3",
+        "type": "mqtt in",
+        "z": "76e53d6c.7055c4",
+        "name": "",
+        "topic": "test/msg",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "7c1e5eca.b0007",
+        "x": 149,
+        "y": 310,
+        "wires": [
+            [
+                "3e5107a4.037008",
+                "422e4128.72e71"
+            ]
+        ]
+    },
+    {
+        "id": "a399ac93.d73fe",
+        "type": "debug",
+        "z": "76e53d6c.7055c4",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 754,
+        "y": 283,
+        "wires": []
+    },
+    {
+        "id": "4c683c55.869974",
+        "type": "function",
+        "z": "76e53d6c.7055c4",
+        "name": "",
+        "func": "let count = context.get('count') || 0;\ncount += 1;\ncontext.set('count',count);\n\nconst array = msg.payload.length;\n\nnode.status({fill:\"green\",shape:\"dot\",text:`${new Date().toLocaleString()} - ${array} - ${count}`});\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 532,
+        "y": 290,
+        "wires": [
+            [
+                "a399ac93.d73fe"
+            ]
+        ]
+    },
+    {
+        "id": "3e5107a4.037008",
+        "type": "mqtt out",
+        "z": "76e53d6c.7055c4",
+        "name": "",
+        "topic": "test/msg",
+        "qos": "",
+        "retain": "",
+        "broker": "7b5a3659.33b9b8",
+        "x": 343,
+        "y": 365,
+        "wires": []
+    },
+    {
+        "id": "c109fb66.a0e908",
+        "type": "mqtt in",
+        "z": "76e53d6c.7055c4",
+        "name": "",
+        "topic": "test/msg",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "7b5a3659.33b9b8",
+        "x": 164,
+        "y": 425,
+        "wires": [
+            [
+                "4720b371.a93f9c"
+            ]
+        ]
+    },
+    {
+        "id": "4720b371.a93f9c",
+        "type": "delay",
+        "z": "76e53d6c.7055c4",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 348,
+        "y": 469,
+        "wires": [
+            [
+                "96d41022.63625"
+            ]
+        ]
+    },
+    {
+        "id": "96d41022.63625",
+        "type": "random",
+        "z": "76e53d6c.7055c4",
+        "name": "",
+        "low": "1",
+        "high": "100",
+        "inte": "true",
+        "property": "payload.t1",
+        "x": 394,
+        "y": 215,
+        "wires": [
+            [
+                "2fbc964b.36ceaa"
+            ]
+        ]
+    },
+    {
+        "id": "422e4128.72e71",
+        "type": "join",
+        "z": "76e53d6c.7055c4",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "60",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 403,
+        "y": 288,
+        "wires": [
+            [
+                "4c683c55.869974"
+            ]
+        ]
     }
 ]
